@@ -1,47 +1,59 @@
 <script>
 	import Skeleton from './Skeleton.svelte';
+	import CreateChatModal from './CreateChatModal.svelte';
 	import { supabase } from '$lib/supabase';
+	import { getAvatarUrl } from '$lib/auth';
 	import { onMount, onDestroy } from 'svelte';
 
-	function unixToTime(unix_timestamp) {
-		// Create a new JavaScript Date object based on the timestamp
-		// multiplied by 1000 so that the argument is in milliseconds, not seconds
-		var date = new Date(unix_timestamp);
+	let showCreateModal = false;
 
-		// Hours part from the timestamp
-		var hours = date.getHours();
+	function formatTime(timestamp) {
+		const date = new Date(timestamp);
+		const now = new Date();
+		const diffMs = now - date;
+		const diffMins = Math.floor(diffMs / 60000);
+		const diffHours = Math.floor(diffMs / 3600000);
+		const diffDays = Math.floor(diffMs / 86400000);
 
-		// Minutes part from the timestamp
-		var minutes = '0' + date.getMinutes();
-
-		// Seconds part from the timestamp
-		var seconds = '0' + date.getSeconds();
-
-		// Will display time in 10:30:23 format
-		var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-		return formattedTime;
+		if (diffMins < 1) return 'Just now';
+		if (diffMins < 60) return `${diffMins}m ago`;
+		if (diffHours < 24) return `${diffHours}h ago`;
+		if (diffDays < 7) return `${diffDays}d ago`;
+		
+		return date.toLocaleDateString();
 	}
 
 	// Demo chats for initial display when Supabase is not configured
 	let chats = [
 		{
 			id: 1034,
-			roomName: 'silly billy fam',
-			recentMessage: 'George: hello',
-			image:
-				'https://api.dicebear.com/7.x/rings/svg?seed=George&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4',
-			recentTime: Date.now() - 300000, // 5 minutes ago
-			notBadge: 2
+			roomName: 'Tech Team',
+			type: 'group',
+			recentMessage: 'George: The new feature is ready! 🎉',
+			image: getAvatarUrl('TechTeam'),
+			recentTime: Date.now() - 300000,
+			notBadge: 2,
+			participants: ['George', 'Sarah', 'Mike']
 		},
 		{
 			id: 1957,
-			roomName: 'Lorenzo',
-			recentMessage: 'Lorenzo: [GIF] why does this look like iOS?',
-			image:
-				'https://api.dicebear.com/7.x/rings/svg?seed=Lorenzo&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4',
-			recentTime: Date.now() - 900000, // 15 minutes ago
-			notBadge: 2
+			roomName: 'Sarah',
+			type: 'direct',
+			recentMessage: 'Sarah: Can you review my PR?',
+			image: getAvatarUrl('Sarah'),
+			recentTime: Date.now() - 900000,
+			notBadge: 1,
+			participants: ['Sarah']
+		},
+		{
+			id: 2001,
+			roomName: 'Project Alpha',
+			type: 'group',
+			recentMessage: 'Mike: Meeting at 3pm',
+			image: getAvatarUrl('ProjectAlpha'),
+			recentTime: Date.now() - 3600000,
+			notBadge: 0,
+			participants: ['Mike', 'Lisa', 'John', 'You']
 		}
 	];
 
@@ -56,6 +68,7 @@
 				.select(`
 					id,
 					name,
+					type,
 					image,
 					created_at,
 					messages (
@@ -67,7 +80,6 @@
 				.order('created_at', { ascending: false });
 
 			if (fetchError) {
-				// If there's an error (e.g., table doesn't exist), use demo data
 				console.log('Using demo data - Supabase not configured:', fetchError.message);
 				error = null;
 				loading = false;
@@ -82,10 +94,11 @@
 					return {
 						id: room.id,
 						roomName: room.name,
+						type: room.type || 'direct',
 						recentMessage: lastMessage
 							? `${lastMessage.username}: ${lastMessage.content}`
 							: 'No messages yet',
-						image: room.image || `https://api.dicebear.com/7.x/rings/svg?seed=${room.name}&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4`,
+						image: room.image || getAvatarUrl(room.name),
 						recentTime: lastMessage ? new Date(lastMessage.created_at).getTime() : new Date(room.created_at).getTime(),
 						notBadge: 0
 					};
@@ -119,6 +132,20 @@
 			.subscribe();
 	}
 
+	function handleChatCreated(event) {
+		const newRoom = event.detail;
+		chats = [{
+			id: newRoom.id,
+			roomName: newRoom.name,
+			type: newRoom.type || 'direct',
+			recentMessage: 'Chat created',
+			image: newRoom.image || getAvatarUrl(newRoom.name),
+			recentTime: Date.now(),
+			notBadge: 0,
+			participants: newRoom.participants || []
+		}, ...chats];
+	}
+
 	onMount(() => {
 		fetchRooms();
 		subscribeToRooms();
@@ -132,103 +159,263 @@
 </script>
 
 <Skeleton>
-	<span slot="title">Rooms</span>
+	<span slot="title">Chats</span>
 
-	<a href="/" class="left-button" slot="left"><i class="fa-solid fa-angle-left" /></a>
-	<button class="right-button" slot="right"><i class="fa-solid fa-plus" /></button>
+	<a href="/" class="left-button" slot="left">
+		<i class="bi bi-arrow-left"></i>
+	</a>
+	<button class="right-button" slot="right" on:click={() => showCreateModal = true}>
+		<i class="bi bi-plus-lg"></i>
+	</button>
 
 	<div slot="content" class="main">
-		{#each chats as chat}
-			<a class="chat" href="/chat/view?id={chat['id']}">
-				<div>
-					<div class="chat-img">
-						<sl-avatar image={chat['image']} label={chat['roomName']} />
-						<!-- <img src={chat['image']} alt="Logo of {chat['roomName']}" class="lazyload" /> -->
+		{#if loading}
+			<div class="loading-state">
+				<div class="spinner"></div>
+				<p>Loading chats...</p>
+			</div>
+		{:else if chats.length === 0}
+			<div class="empty-state">
+				<i class="bi bi-chat-dots"></i>
+				<h3>No chats yet</h3>
+				<p>Start a conversation by tapping the + button</p>
+				<button class="start-chat-btn" on:click={() => showCreateModal = true}>
+					<i class="bi bi-plus-lg"></i>
+					New Chat
+				</button>
+			</div>
+		{:else}
+			{#each chats as chat}
+				<a class="chat" href="/chat/view?id={chat.id}">
+					<div class="chat-left">
+						<div class="chat-img">
+							<img src={chat.image} alt={chat.roomName} />
+							{#if chat.type === 'group'}
+								<span class="group-badge">
+									<i class="bi bi-people-fill"></i>
+								</span>
+							{/if}
+						</div>
+						<div class="chat-content">
+							<div class="chat-header">
+								<strong class="chat-name">{chat.roomName}</strong>
+								<span class="chat-time">{formatTime(chat.recentTime)}</span>
+							</div>
+							<p class="chat-preview">{chat.recentMessage}</p>
+						</div>
 					</div>
-					<div class="chat-content">
-						<strong>{chat['roomName']}</strong>
-						<span class="text-muted">{chat['recentMessage']}</span>
-					</div>
-				</div>
-				<div style="display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
-					<span class="time text-muted">{unixToTime(chat['recentTime'])}</span>
-					<div class="badge">{chat['notBadge']}</div>
-				</div>
-			</a>
-			<hr />
-		{/each}
+					{#if chat.notBadge > 0}
+						<div class="badge">{chat.notBadge}</div>
+					{/if}
+				</a>
+			{/each}
+		{/if}
 	</div>
 </Skeleton>
 
+<CreateChatModal 
+	bind:show={showCreateModal} 
+	on:created={handleChatCreated}
+	on:close={() => showCreateModal = false}
+/>
+
 <style lang="scss">
 	@import '../main';
+	
 	.main {
-		// Desktop: Center and constrain width
+		padding: 0.5rem;
+		
 		@media (min-width: 992px) {
 			max-width: 800px;
 			margin: 0 auto;
 			padding: 1rem;
 		}
-		.chat {
+	}
+
+	.loading-state, .empty-state {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 3rem 1rem;
+		text-align: center;
+		color: $gray-600;
+
+		i {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+			color: $gray-400;
+		}
+
+		h3 {
+			margin: 0 0 0.5rem;
+			color: $gray-800;
+			font-family: 'Instrument Serif', Georgia, serif;
+
 			@media (prefers-color-scheme: dark) {
-				.text-muted {
-					color: $gray-600 !important;
-				}
+				color: white;
 			}
-			padding: 0.75rem;
+		}
+
+		p {
+			margin: 0;
+			font-size: 0.875rem;
+		}
+	}
+
+	.spinner {
+		width: 32px;
+		height: 32px;
+		border: 3px solid $gray-200;
+		border-top-color: $primary;
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+		margin-bottom: 1rem;
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+
+	.start-chat-btn {
+		margin-top: 1.5rem;
+		padding: 0.75rem 1.5rem;
+		background: $primary;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-family: 'Outfit', sans-serif;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition: background 0.2s;
+
+		&:hover {
+			background: darken($primary, 10%);
+		}
+	}
+
+	.chat {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.875rem 1rem;
+		text-decoration: none;
+		color: inherit;
+		border-radius: 12px;
+		transition: background 0.2s;
+		margin-bottom: 0.25rem;
+
+		&:hover {
+			background: $gray-100;
+			
+			@media (prefers-color-scheme: dark) {
+				background: rgba(255, 255, 255, 0.05);
+			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			color: white;
+		}
+	}
+
+	.chat-left {
+		display: flex;
+		align-items: center;
+		gap: 0.875rem;
+		flex: 1;
+		min-width: 0; // Important for text overflow
+	}
+
+	.chat-img {
+		position: relative;
+		flex-shrink: 0;
+
+		img {
+			width: 52px;
+			height: 52px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+
+		.group-badge {
+			position: absolute;
+			bottom: -2px;
+			right: -2px;
+			background: $primary;
+			color: white;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
 			display: flex;
-			gap: 10px;
 			align-items: center;
-			justify-content: space-between;
-			cursor: pointer;
-			text-decoration: none;
-			transition: 0.2s;
-			// Desktop: Add border radius for better look
-			@media (min-width: 992px) {
-				border-radius: 0.5rem;
-				padding: 1rem;
-			}
-			div {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-			}
-			.chat-img {
-				img {
-					border-radius: 50%;
-					aspect-ratio: 1 / 1;
-					height: 48px;
-				}
-				sl-avatar {
-					border-radius: 50%;
-					aspect-ratio: 1 / 1;
-					height: 48px;
-					--sl-color-neutral-400: transparent;
-				}
-			}
-			.chat-content {
-				display: flex;
-				flex-direction: column;
-				gap: 0;
-				align-items: baseline;
-				justify-content: center;
-				color: black;
-				@media (prefers-color-scheme: dark) {
-					& {
-						color: white;
-					}
-				}
-			}
-			&:hover {
-				background: $gray-200;
-				@media (prefers-color-scheme: dark) {
-					background: #444;
-				}
+			justify-content: center;
+			font-size: 0.625rem;
+			border: 2px solid white;
+
+			@media (prefers-color-scheme: dark) {
+				border-color: #1a1a1a;
 			}
 		}
-		hr {
-			margin: 0 !important;
+	}
+
+	.chat-content {
+		flex: 1;
+		min-width: 0; // Important for text overflow
+	}
+
+	.chat-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.chat-name {
+		font-weight: 600;
+		font-size: 1rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.chat-time {
+		font-size: 0.75rem;
+		color: $gray-500;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	.chat-preview {
+		margin: 0;
+		font-size: 0.875rem;
+		color: $gray-600;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+
+		@media (prefers-color-scheme: dark) {
+			color: $gray-400;
 		}
+	}
+
+	.badge {
+		background: $primary;
+		color: white;
+		font-size: 0.75rem;
+		font-weight: 600;
+		min-width: 20px;
+		height: 20px;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 6px;
+		flex-shrink: 0;
 	}
 
 	.right-button {
@@ -236,23 +423,38 @@
 		right: 0;
 		border: none;
 		background: transparent;
-		color: $link-color;
+		color: $primary;
 		padding: 0 1rem;
 		height: 100%;
-		font-size: 16pt;
+		font-size: 1.25rem;
 		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: color 0.2s;
+
+		&:hover {
+			color: darken($primary, 10%);
+		}
 	}
+
 	.left-button {
 		position: absolute;
 		left: 0;
 		border: none;
 		background: transparent;
-		color: $link-color;
+		color: $primary;
 		padding: 0 1rem;
 		height: 100%;
-		font-size: 16pt;
+		font-size: 1.25rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		text-decoration: none;
+		transition: color 0.2s;
+
+		&:hover {
+			color: darken($primary, 10%);
+		}
 	}
 </style>
