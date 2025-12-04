@@ -212,6 +212,11 @@
 	.container-sm {
 		padding-top: 2em;
 		font-family: 'Outfit', $font-sans-serif !important;
+		// Desktop: Add top padding to account for fixed navbar
+		@media (min-width: 992px) {
+			padding-top: 5em;
+			max-width: 900px;
+		}
 	}
 
 	.new-f {
@@ -224,6 +229,13 @@
 		display: flex;
 		flex-direction: column;
 		padding: 1rem 0;
+		// Desktop: Add top margin for fixed navbar
+		@media (min-width: 992px) {
+			margin-top: 56px;
+			flex-direction: row;
+			padding: 1rem 2rem;
+			gap: 2rem;
+		}
 		.new-feature {
 			width: auto;
 			box-shadow: $inset-shadow;
@@ -243,6 +255,12 @@
 			margin: 0.5rem;
 			width: 90%;
 			height: auto;
+			// Desktop: Limit video size
+			@media (min-width: 992px) {
+				width: auto;
+				max-width: 500px;
+				max-height: 300px;
+			}
 		}
 		.demo-replay {
 			display: none;
@@ -283,6 +301,10 @@
 		overflow: auto;
 		text-align: center;
 		padding-bottom: 0 !important;
+		// Desktop: Reset padding bottom for fixed navbar at top
+		@media (min-width: 992px) {
+			padding-bottom: 2rem !important;
+		}
 	}
 	.col {
 		display: flex;
@@ -295,12 +317,22 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			// Desktop: Limit button width
+			@media (min-width: 992px) {
+				.d-button {
+					max-width: 400px;
+				}
+			}
 		}
 	}
 	.big-heading {
 		font-size: calc(1.525rem + 3.3vw);
 		text-align: center;
 		width: 100%;
+		// Desktop: Larger heading
+		@media (min-width: 992px) {
+			font-size: 3.5rem;
+		}
 	}
 	@media (prefers-color-scheme: dark) {
 		.encryption {
@@ -329,5 +361,10 @@
 
 	.container-sm {
 		margin-bottom: 2rem;
+	}
+
+	// Desktop: Hide demo hidden class
+	.demoHidden {
+		display: none !important;
 	}
 </style>

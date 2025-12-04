@@ -1,6 +1,8 @@
 <script>
 	import Skeleton from './Skeleton.svelte';
-	// import Navbar from '../../Navbar.svelte';
+	import { supabase } from '$lib/supabase';
+	import { onMount, onDestroy } from 'svelte';
+
 	function unixToTime(unix_timestamp) {
 		// Create a new JavaScript Date object based on the timestamp
 		// multiplied by 1000 so that the argument is in milliseconds, not seconds
@@ -21,6 +23,7 @@
 		return formattedTime;
 	}
 
+	// Demo chats for initial display when Supabase is not configured
 	let chats = [
 		{
 			id: 1034,
@@ -28,7 +31,7 @@
 			recentMessage: 'George: hello',
 			image:
 				'https://api.dicebear.com/7.x/rings/svg?seed=George&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4',
-			recentTime: 1697902306724,
+			recentTime: Date.now(),
 			notBadge: 2
 		},
 		{
@@ -37,10 +40,95 @@
 			recentMessage: 'Lorenzo: [GIF] why does this look like iOS?',
 			image:
 				'https://api.dicebear.com/7.x/rings/svg?seed=Lorenzo&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4',
-			recentTime: 1697902306724,
+			recentTime: Date.now(),
 			notBadge: 2
 		}
 	];
+
+	let loading = true;
+	let error = null;
+	let subscription;
+
+	async function fetchRooms() {
+		try {
+			const { data, error: fetchError } = await supabase
+				.from('rooms')
+				.select(`
+					id,
+					name,
+					image,
+					created_at,
+					messages (
+						content,
+						username,
+						created_at
+					)
+				`)
+				.order('created_at', { ascending: false });
+
+			if (fetchError) {
+				// If there's an error (e.g., table doesn't exist), use demo data
+				console.log('Using demo data - Supabase not configured:', fetchError.message);
+				error = null;
+				loading = false;
+				return;
+			}
+
+			if (data && data.length > 0) {
+				chats = data.map((room) => {
+					const lastMessage = room.messages && room.messages.length > 0
+						? room.messages[room.messages.length - 1]
+						: null;
+					return {
+						id: room.id,
+						roomName: room.name,
+						recentMessage: lastMessage
+							? `${lastMessage.username}: ${lastMessage.content}`
+							: 'No messages yet',
+						image: room.image || `https://api.dicebear.com/7.x/rings/svg?seed=${room.name}&radius=50&backgroundType=gradientLinear&ringColor=4db6ac,81c784,9575cd,aed581,ba68c8,e57373,f06292,ff8a65,ffb74d,ffd54f,dce775,4dd0e1,7986cb&ringFive=full,half,quarter,eighth&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=c0aede,b6e3f4`,
+						recentTime: lastMessage ? new Date(lastMessage.created_at).getTime() : new Date(room.created_at).getTime(),
+						notBadge: 0
+					};
+				});
+			}
+			loading = false;
+		} catch (err) {
+			console.log('Using demo data - Supabase connection error');
+			error = null;
+			loading = false;
+		}
+	}
+
+	function subscribeToRooms() {
+		subscription = supabase
+			.channel('rooms-channel')
+			.on(
+				'postgres_changes',
+				{ event: '*', schema: 'public', table: 'rooms' },
+				() => {
+					fetchRooms();
+				}
+			)
+			.on(
+				'postgres_changes',
+				{ event: 'INSERT', schema: 'public', table: 'messages' },
+				() => {
+					fetchRooms();
+				}
+			)
+			.subscribe();
+	}
+
+	onMount(() => {
+		fetchRooms();
+		subscribeToRooms();
+	});
+
+	onDestroy(() => {
+		if (subscription) {
+			supabase.removeChannel(subscription);
+		}
+	});
 </script>
 
 <Skeleton>
@@ -75,6 +163,12 @@
 <style lang="scss">
 	@import '../main';
 	.main {
+		// Desktop: Center and constrain width
+		@media (min-width: 992px) {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 1rem;
+		}
 		.chat {
 			@media (prefers-color-scheme: dark) {
 				.text-muted {
@@ -89,6 +183,11 @@
 			cursor: pointer;
 			text-decoration: none;
 			transition: 0.2s;
+			// Desktop: Add border radius for better look
+			@media (min-width: 992px) {
+				border-radius: 0.5rem;
+				padding: 1rem;
+			}
 			div {
 				display: flex;
 				align-items: center;
@@ -122,6 +221,9 @@
 			}
 			&:hover {
 				background: $gray-200;
+				@media (prefers-color-scheme: dark) {
+					background: #444;
+				}
 			}
 		}
 		hr {
@@ -138,6 +240,7 @@
 		padding: 0 1rem;
 		height: 100%;
 		font-size: 16pt;
+		cursor: pointer;
 	}
 	.left-button {
 		position: absolute;

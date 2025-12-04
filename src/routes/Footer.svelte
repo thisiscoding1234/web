@@ -123,16 +123,29 @@
 		align-items: center;
 		justify-content: center;
 		display: flex;
+		// Desktop: Better spacing
+		@media (min-width: 992px) {
+			padding: 3rem 2rem;
+			bottom: 0;
+		}
 		.col,
 		.col-lg-3 {
 			align-items: center;
 			display: flex;
 			flex-direction: column;
+			// Desktop: Align items to start
+			@media (min-width: 992px) {
+				align-items: flex-start;
+			}
 			ul {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+				// Desktop: Align lists to start
+				@media (min-width: 992px) {
+					align-items: flex-start;
+				}
 			}
 		}
 		* {
