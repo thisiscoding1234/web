@@ -1,11 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 
 // These are public keys - they're safe to expose in the client
-// In production, you should use environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
+// In production, set these environment variables in your deployment
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Check if Supabase is configured
+export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey && 
+	!supabaseUrl.includes('your-project') && 
+	!supabaseAnonKey.includes('your-anon-key'));
+
+// Create client with fallback for demo mode
+export const supabase = createClient(
+	supabaseUrl || 'https://placeholder.supabase.co',
+	supabaseAnonKey || 'placeholder-key'
+);
 
 // Types for our chat application
 export interface Message {

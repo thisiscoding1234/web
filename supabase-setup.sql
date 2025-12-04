@@ -37,7 +37,13 @@ ALTER TABLE rooms ENABLE ROW LEVEL SECURITY;
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 
--- Create policies for public access (adjust based on your auth requirements)
+-- IMPORTANT: These policies allow public access for demo purposes.
+-- For production, you should:
+-- 1. Implement Supabase Auth
+-- 2. Restrict policies to authenticated users
+-- 3. Add user-specific policies (e.g., users can only edit their own messages)
+
+-- Create policies for public access (DEMO ONLY - tighten for production)
 -- Allow anyone to read rooms
 CREATE POLICY "Allow public read access to rooms" ON rooms
     FOR SELECT USING (true);

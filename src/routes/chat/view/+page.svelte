@@ -13,7 +13,7 @@
 	let subscription;
 	let messagesContainer;
 	let currentUser = {
-		id: 'demo-user-' + Math.random().toString(36).substr(2, 9),
+		id: 'demo-user-' + crypto.randomUUID().substring(0, 9),
 		username: 'You'
 	};
 
