@@ -80,6 +80,17 @@
 				throw createError;
 			}
 
+			// Insert participants into room_participants table
+			const participants = selectedUsers.map(user_id => ({
+				room_id: data.id,
+				user_id
+			}));
+			const { error: participantsError } = await supabase
+				.from('room_participants')
+				.insert(participants);
+			if (participantsError) {
+				throw participantsError;
+			}
 			dispatch('created', data);
 			close();
 		} catch (err) {
