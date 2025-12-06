@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@100..900&display=swap');
 
 // Functions first
 @import "../../node_modules/bootstrap/scss/functions";
@@ -31,10 +31,13 @@ $prefix: "d-";
 @import "../../node_modules/bootstrap/scss/nav";
 @import "../../node_modules/bootstrap/scss/mixins/breakpoints";
 
+// Font definitions
 $font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+$font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+$font-body: 'Outfit', $font-sans-serif;
 
 html {
-    font-family: 'Outfit', $font-sans-serif;
+    font-family: $font-body;
 }
 html, body {
     height: 100%;
@@ -47,4 +50,14 @@ body {
 }
 *, *::before, *::after {
     box-sizing: border-box;
+}
+
+// Display headings use Instrument Serif
+h1, h2, .display-heading {
+    font-family: $font-display;
+}
+
+// Body text uses Outfit
+h3, h4, h5, h6, p, span, a, button, input, label {
+    font-family: $font-body;
 }

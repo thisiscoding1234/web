@@ -50,11 +50,16 @@
 		background: rgba(0, 0, 0, 0.03);
 		-webkit-backdrop-filter: blur(10px);
 		backdrop-filter: blur(10px);
-		z-index: 1;
+		z-index: 1000;
 		@media (prefers-color-scheme: dark) {
 			& {
 				background: rgba(255, 255, 255, 0.1);
 			}
+		}
+		// Desktop: Move navbar to top
+		@media (min-width: 992px) {
+			top: 0;
+			bottom: auto;
 		}
 	}
 	.navbar button.d-button {
