@@ -11,7 +11,7 @@ export const loading = writable(true);
  * @returns The DiceBear avatar URL
  */
 export function getAvatarUrl(username: string): string {
-	return `https://api.dicebear.com/9.x/rings/svg?seed=${encodeURIComponent(username)}&radius=50&backgroundType=gradientLinear&ringFive=full,eighth,half,quarter&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+	return `https://api.dicebear.com/9.0/rings/svg?seed=${encodeURIComponent(username)}&radius=50&backgroundType=gradientLinear&ringFive=full,eighth,half,quarter&ringFour=half,quarter,full,eighth&ringOne=half,quarter,full,eighth&ringThree=half,quarter,full,eighth&ringTwo=half,quarter,full,eighth&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
 }
 
 /**
