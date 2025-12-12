@@ -1,0 +1,39 @@
+{
+	"/": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/authenticate": [
+		"src/routes/+layout.js"
+	],
+	"/authenticate/callback": [
+		"src/routes/authenticate/callback/+page.js",
+		"src/routes/+layout.js"
+	],
+	"/chat": [
+		"src/routes/chat/+page.js",
+		"src/routes/+layout.js"
+	],
+	"/chat/view": [
+		"src/routes/chat/view/+page.js",
+		"src/routes/+layout.js"
+	],
+	"/policies/privacy": [
+		"src/routes/+layout.js"
+	],
+	"/policies/technical": [
+		"src/routes/+layout.js"
+	],
+	"/policies/terms": [
+		"src/routes/+layout.js"
+	],
+	"/policies/terms/legal": [
+		"src/routes/+layout.js"
+	],
+	"/profile": [
+		"src/routes/+layout.js"
+	],
+	"/tests/infinite_scrollbars": [
+		"src/routes/+layout.js"
+	]
+}

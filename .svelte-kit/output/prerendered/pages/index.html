@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href="https://unpkg.com/movement.css/movement.css" rel="stylesheet"> 
+		<meta charset="utf-8" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/icons/favicon.ico">
+		<meta name="msapplication-TileColor" content="#ffc40d">
+		<meta name="msapplication-config" content="/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<meta name="viewport" content="width=device-width" />
+		
+		<!-- Google Fonts: Instrument Serif (display) and Outfit (body) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+		
+		<!-- Bootstrap Icons -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+		
+		<link
+			rel="stylesheet"
+			media="(prefers-color-scheme:light)"
+			href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/light.css"
+		/>
+		<link
+			rel="stylesheet"
+			media="(prefers-color-scheme:dark)"
+			href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css"
+			onload="document.documentElement.classList.add('sl-theme-dark');"
+		/>
+		<style>
+			html {
+				font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+			}
+			h1, h2, .display-heading {
+				font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+			}
+			html, body, body div[style='display: contents'] {
+				height: 100%;
+				width: 100%;
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+		
+		<link href="./_app/immutable/assets/2.af20883d.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/Footer.4e8c418e.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.d571cf32.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.dfe21b3d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.a37bdec6.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.6f6508f3.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.3dafbc50.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.d8e63cd2.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.0a7dfcf3.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.c659338c.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/Footer.a010ea1e.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">  <nav class="navbar navbar-expand-lg svelte-6xm347" data-svelte-h="svelte-1p2pqf2"><div class="container-fluid svelte-6xm347"><a class="navbar-brand svelte-6xm347" href="/"><img alt="Logo" style="height: 48px;" src="/icons/android-chrome-192x192.png" class="svelte-6xm347"></a> <button class="navbar-toggler svelte-6xm347" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon svelte-6xm347"></span></button> <div class="collapse navbar-collapse svelte-6xm347" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0 svelte-6xm347"><li class="nav-item svelte-6xm347"><a class="nav-link active svelte-6xm347" aria-current="page" href="/">Home</a></li> <li class="nav-item svelte-6xm347"><a class="nav-link active svelte-6xm347" href="/policies/privacy">Privacy</a></li> </ul> <form class="d-flex login-prompt svelte-6xm347" role="login"><a href="/authenticate?state=reg" class="d-button svelte-6xm347" style="margin-right: 0.5rem; width: 75%;">Sign Up</a> <a href="/authenticate" class="d-button-secondary svelte-6xm347" style="width: 25%;">Sign In</a></form></div></div> </nav> <div class="new-f svelte-79t82a"><button class="f-close svelte-79t82a" data-svelte-h="svelte-148283z"><i class="fa-solid fa-xmark svelte-79t82a"></i></button> <strong class="new-feature svelte-79t82a" data-svelte-h="svelte-1738rf9">New in Dispatch:</strong> <span class="new-f-desc svelte-79t82a" data-svelte-h="svelte-bqbsyl"><strong class="svelte-79t82a">v0.1</strong> A fresh start, new interface and better code</span> <video class="new-f-demo lazyload svelte-79t82a" controlslist="nodownload" playsinline autoplay muted poster="/iphones.webp" data-svelte-h="svelte-3q8off"><source src="/iphones.webm" type="video/webm" class="svelte-79t82a"></video> <span tabindex="0" role="button" class="demo-replay icon-link svelte-79t82a" data-svelte-h="svelte-1kwsmnm"><i class="fa-solid fa-rotate-right svelte-79t82a"></i>
+		Replay</span></div> <main style="position: relative; top: 0;" class="svelte-79t82a"><div class="container-sm svelte-79t82a"><div class="col svelte-79t82a"><div class="row svelte-79t82a" data-svelte-h="svelte-i3ihwg"><h1 class="big-heading mb-3 fw-semibold lh-1 svelte-79t82a">The most <span class="h1-switch svelte-79t82a">customizable</span> c‌h‌att‌ing service out
+					there</h1> <p class="lead mb-4 svelte-79t82a" style="color: var(--d-secondary-color); text-align: center;">Whatever your style, rainbow unicorns, squared edges or the default look, express yourself
+					with peace of mind, knowing that we do not collect any of your data.</p> <a href="/authenticate?state=reg" class="d-button svelte-79t82a" style="width: 100%; font-size: x-large;">Sign up now</a> <a target="_blank" href="https://github.com/GoneRogueProductions/dispatchx" class="d-button icon-link svelte-79t82a" style="width: 100%; background: black; border: 0; justify-content: center; margin-top: .5rem;"><i class="fa-brands fa-github svelte-79t82a"></i> View on Github</a></div> <div class="row svelte-79t82a"><hr style="margin-top: 1rem;" class="svelte-79t82a"> <h3 class="svelte-79t82a" data-svelte-h="svelte-5megpx">Still not convinced?</h3> <h1 class="svelte-79t82a" data-svelte-h="svelte-7wn0c1"><code style="font-family: var(--d-font-monospace)!important;" class="encryption mb-3 fw-semibold lh-1 text-center text-black svelte-79t82a">End to end encryption</code></h1> <span tabindex="0" role="button" class="encryption-replay icon-link svelte-79t82a" data-svelte-h="svelte-1mf8spq"><i class="fa-solid fa-rotate-right svelte-79t82a"></i>
+					Replay</span> <p class="lead mb-4 svelte-79t82a" style="color: var(--d-secondary-color); text-align: center;" data-svelte-h="svelte-4xrykt">End to end encryption is used by almost every c‌h‌atting service nowadays.
+					However, some big companies spy on your m‌e‌ss‌ages <em class="svelte-79t82a">before</em> they get
+					encrypted, so they get looked at by someone who you don&#39;t want looking.</p> <p class="lead mb-4 svelte-79t82a" style="color: var(--d-secondary-color); text-align: center;" data-svelte-h="svelte-18f9hd9">However, Dispatch does not spy on your m‌e‌ss‌ages in any way whatsoever,
+					and our encryption means that only the people you want seeing your
+					m‌e‌ss‌ages can see them.</p></div></div></div> <footer class="py-5 container footer bg-body-tertiary svelte-899xh8" data-svelte-h="svelte-ycjkpu"><div class="row svelte-899xh8"><div class="col-lg-3 mb-3 svelte-899xh8"><h2 style="font-family: 'Outfit'; " class="icon-link svelte-899xh8"><img alt="Logo" style="height: 48px;" src="/icons/android-chrome-192x192.png" class="svelte-899xh8">Dispatch</h2> <p class="text-muted svelte-899xh8">
+				Code license
+				<a target="_blank" href="https://github.com/GoneRogueProductions/dispatchx/blob/main/LICENSE" class="svelte-899xh8">MPL</a>, docs
+				<a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" class="svelte-899xh8">CC BY 4.0</a>, media
+				<a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" class="svelte-899xh8">CC BY-NC 4.0</a>.</p></div> <div class="col mb-3 svelte-899xh8"><h5 class="svelte-899xh8">Links</h5> <ul class="nav flex-column svelte-899xh8"><li class="nav-item mb-2 svelte-899xh8"><a href="/" class="nav-link p-0 text-muted svelte-899xh8">Home</a></li> <li class="nav-item mb-2 svelte-899xh8"><a href="/authenticate" class="nav-link p-0 text-muted svelte-899xh8">Log in</a></li> <li class="nav-item mb-2 svelte-899xh8"><a href="/authenticate?state=reg" class="nav-link p-0 text-muted svelte-899xh8">Sign up</a></li> <li class="nav-item mb-2 svelte-899xh8"><a href="/chat" class="nav-link p-0 text-muted svelte-899xh8">Chat</a></li></ul></div> <div class="col mb-3 svelte-899xh8"><h5 class="svelte-899xh8">Contribute</h5> <ul class="nav flex-column svelte-899xh8"><li class="nav-item mb-2 svelte-899xh8"><a target="_blank" href="https://github.com/GoneRogueProductions/dispatchx/" class="nav-link p-0 text-muted svelte-899xh8">GitHub</a></li> <li class="nav-item mb-2 svelte-899xh8"><a target="_blank" href="https://github.com/GoneRogueProductions/dispatchx/issues" class="nav-link p-0 text-muted svelte-899xh8">Issues</a></li> <li class="nav-item mb-2 svelte-899xh8"><a target="_blank" href="https://github.com/GoneRogueProductions/dispatchx/pulls" class="nav-link p-0 text-muted svelte-899xh8">Pull requests</a></li> <li class="nav-item mb-2 svelte-899xh8"><a target="_blank" href="https://replit.com/@dispatchx/dispatchx-backend" class="nav-link p-0 text-muted svelte-899xh8">API</a></li></ul></div> <div class="col mb-3 svelte-899xh8"><h5 class="svelte-899xh8">Policies</h5> <ul class="nav flex-column svelte-899xh8"><li class="nav-item mb-2 svelte-899xh8"><a href="/policies/privacy" class="nav-link p-0 text-muted svelte-899xh8">Privacy</a></li> <li class="nav-item mb-2 svelte-899xh8"><a href="/policies/technical" class="nav-link p-0 text-muted svelte-899xh8">Technical</a></li> <li class="nav-item mb-2 svelte-899xh8"><a href="/policies/terms" class="nav-link p-0 text-muted svelte-899xh8">Terms</a></li></ul></div> <br class="svelte-899xh8"> </div> </footer> </main> 
+			
+			<script>
+				{
+					__sveltekit_18qtvef = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.d571cf32.js"),
+						import("./_app/immutable/entry/app.3dafbc50.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+		<script src="/js/lazysizes-5.3.2.min.js" integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf+e" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script defer src="https://kit.fontawesome.com/049529442a.js" integrity="sha384-o88j5orbZnS+7uPb6MJNLJQ3sduMevDjbBaYBnw1qX6V6tw2HxHBuiYFw5seJTQv" crossorigin="anonymous"></script>
+		<script defer src="/js/jquery-3.7.1.min.js" integrity="sha384-gUc/4PIHTpkkkN3vgM4RWPcYufACEPWuDJ/kMmJjdXKb0cSpJATxMgeM/QS+rSZc" crossorigin="anonymous"></script>
+		<script defer src="/js/jquery-ui/jquery-ui.min.js" integrity="sha384-4D3G3GikQs6hLlLZGdz5wLFzuqE9v4yVGAcOH86y23JqBDPzj9viv0EqyfIa6YUL" crossorigin="anonymous"></script>
+		<script type="module" defer
+			src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/shoelace-autoloader.js"></script>
+		<script defer src="/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		<style>
+			body {
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>
