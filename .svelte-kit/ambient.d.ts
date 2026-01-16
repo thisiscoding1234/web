@@ -154,6 +154,7 @@ declare module '$env/static/private' {
 	export const npm_command: string;
 	export const ANDROID_NDK: string;
 	export const SGX_AESM_ADDR: string;
+	export const PSModulePath: string;
 	export const CHROME_BIN: string;
 	export const SELENIUM_JAR_PATH: string;
 	export const MEMORY_PRESSURE_WRITE: string;
@@ -319,6 +320,7 @@ declare module '$env/dynamic/private' {
 		npm_command: string;
 		ANDROID_NDK: string;
 		SGX_AESM_ADDR: string;
+		PSModulePath: string;
 		CHROME_BIN: string;
 		SELENIUM_JAR_PATH: string;
 		MEMORY_PRESSURE_WRITE: string;
