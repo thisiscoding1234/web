@@ -56,6 +56,7 @@ declare module '$env/static/private' {
 	export const npm_config_userconfig: string;
 	export const npm_config_local_prefix: string;
 	export const SYSTEMD_EXEC_PID: string;
+	export const ACTIONS_ORCHESTRATION_ID: string;
 	export const npm_config_engine_strict: string;
 	export const GITHUB_GRAPHQL_URL: string;
 	export const COLOR: string;
@@ -222,6 +223,7 @@ declare module '$env/dynamic/private' {
 		npm_config_userconfig: string;
 		npm_config_local_prefix: string;
 		SYSTEMD_EXEC_PID: string;
+		ACTIONS_ORCHESTRATION_ID: string;
 		npm_config_engine_strict: string;
 		GITHUB_GRAPHQL_URL: string;
 		COLOR: string;
