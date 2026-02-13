@@ -31,6 +31,7 @@ declare module '$env/static/private' {
 	export const USER: string;
 	export const npm_config_user_agent: string;
 	export const CI: string;
+	export const USE_BAZEL_FALLBACK_VERSION: string;
 	export const RUNNER_ENVIRONMENT: string;
 	export const GITHUB_ENV: string;
 	export const PIPX_HOME: string;
@@ -198,6 +199,7 @@ declare module '$env/dynamic/private' {
 		USER: string;
 		npm_config_user_agent: string;
 		CI: string;
+		USE_BAZEL_FALLBACK_VERSION: string;
 		RUNNER_ENVIRONMENT: string;
 		GITHUB_ENV: string;
 		PIPX_HOME: string;
