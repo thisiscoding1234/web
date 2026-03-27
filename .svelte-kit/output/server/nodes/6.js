@@ -5,6 +5,6 @@ let component_cache;
 export const component = async () => component_cache ??= (await import('../entries/pages/chat/view/_page.svelte.js')).default;
 export { universal };
 export const universal_id = "src/routes/chat/view/+page.js";
-export const imports = ["_app/immutable/nodes/6.b7a20e57.js","_app/immutable/chunks/scheduler.dfe21b3d.js","_app/immutable/chunks/index.d8e63cd2.js","_app/immutable/chunks/each.048f5106.js","_app/immutable/chunks/stores.fed7c9b2.js","_app/immutable/chunks/singletons.1f4acfe7.js","_app/immutable/chunks/index.6f6508f3.js","_app/immutable/chunks/Skeleton.160977ac.js","_app/immutable/chunks/supabase.ed06c84b.js","_app/immutable/chunks/_commonjsHelpers.23102255.js"];
+export const imports = ["_app/immutable/nodes/6.0062a69d.js","_app/immutable/chunks/scheduler.dfe21b3d.js","_app/immutable/chunks/index.d8e63cd2.js","_app/immutable/chunks/each.048f5106.js","_app/immutable/chunks/stores.bde67502.js","_app/immutable/chunks/singletons.3f2621c1.js","_app/immutable/chunks/index.6f6508f3.js","_app/immutable/chunks/Skeleton.160977ac.js","_app/immutable/chunks/supabase.ed06c84b.js","_app/immutable/chunks/_commonjsHelpers.23102255.js"];
 export const stylesheets = ["_app/immutable/assets/6.4c3fe0eb.css","_app/immutable/assets/Skeleton.1338545b.css"];
 export const fonts = [];
