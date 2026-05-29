@@ -131,6 +131,7 @@ declare module '$env/static/private' {
 	export const GITHUB_JOB: string;
 	export const GITHUB_SHA: string;
 	export const GITHUB_RUN_ATTEMPT: string;
+	export const ACTIONS_RUNNER_RETURN_JOB_RESULT_FOR_HOSTED: string;
 	export const GITHUB_REF: string;
 	export const GITHUB_ACTOR: string;
 	export const ANDROID_SDK_ROOT: string;
@@ -299,6 +300,7 @@ declare module '$env/dynamic/private' {
 		GITHUB_JOB: string;
 		GITHUB_SHA: string;
 		GITHUB_RUN_ATTEMPT: string;
+		ACTIONS_RUNNER_RETURN_JOB_RESULT_FOR_HOSTED: string;
 		GITHUB_REF: string;
 		GITHUB_ACTOR: string;
 		ANDROID_SDK_ROOT: string;
