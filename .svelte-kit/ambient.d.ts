@@ -38,6 +38,7 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const JAVA_HOME_8_X64: string;
 	export const SHLVL: string;
+	export const HCA_CLOUD_PROVIDER: string;
 	export const npm_config_noproxy: string;
 	export const HOME: string;
 	export const RUNNER_TEMP: string;
@@ -69,10 +70,8 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const RUNNER_OS: string;
 	export const GITHUB_API_URL: string;
-	export const GOROOT_1_22_X64: string;
 	export const SWIFT_PATH: string;
 	export const CHROMEWEBDRIVER: string;
-	export const GOROOT_1_23_X64: string;
 	export const JOURNAL_STREAM: string;
 	export const GITHUB_WORKFLOW: string;
 	export const _: string;
@@ -87,6 +86,7 @@ declare module '$env/static/private' {
 	export const GITHUB_REF_TYPE: string;
 	export const BOOTSTRAP_HASKELL_NONINTERACTIVE: string;
 	export const GITHUB_WORKFLOW_SHA: string;
+	export const GOROOT_1_26_X64: string;
 	export const GITHUB_BASE_REF: string;
 	export const ImageOS: string;
 	export const GITHUB_WORKFLOW_REF: string;
@@ -207,6 +207,7 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		JAVA_HOME_8_X64: string;
 		SHLVL: string;
+		HCA_CLOUD_PROVIDER: string;
 		npm_config_noproxy: string;
 		HOME: string;
 		RUNNER_TEMP: string;
@@ -238,10 +239,8 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		RUNNER_OS: string;
 		GITHUB_API_URL: string;
-		GOROOT_1_22_X64: string;
 		SWIFT_PATH: string;
 		CHROMEWEBDRIVER: string;
-		GOROOT_1_23_X64: string;
 		JOURNAL_STREAM: string;
 		GITHUB_WORKFLOW: string;
 		_: string;
@@ -256,6 +255,7 @@ declare module '$env/dynamic/private' {
 		GITHUB_REF_TYPE: string;
 		BOOTSTRAP_HASKELL_NONINTERACTIVE: string;
 		GITHUB_WORKFLOW_SHA: string;
+		GOROOT_1_26_X64: string;
 		GITHUB_BASE_REF: string;
 		ImageOS: string;
 		GITHUB_WORKFLOW_REF: string;
