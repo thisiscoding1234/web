@@ -3,6 +3,6 @@
 export const index = 3;
 let component_cache;
 export const component = async () => component_cache ??= (await import('../entries/pages/authenticate/_page.svelte.js')).default;
-export const imports = ["_app/immutable/nodes/3.64a2c0ae.js","_app/immutable/chunks/scheduler.dfe21b3d.js","_app/immutable/chunks/index.d8e63cd2.js","_app/immutable/chunks/stores.1a0cdd30.js","_app/immutable/chunks/singletons.1db028a2.js","_app/immutable/chunks/index.6f6508f3.js","_app/immutable/chunks/auth.816a7469.js","_app/immutable/chunks/supabase.ed06c84b.js","_app/immutable/chunks/_commonjsHelpers.23102255.js"];
+export const imports = ["_app/immutable/nodes/3.588905f7.js","_app/immutable/chunks/scheduler.dfe21b3d.js","_app/immutable/chunks/index.d8e63cd2.js","_app/immutable/chunks/stores.12e61bdb.js","_app/immutable/chunks/singletons.de47ad84.js","_app/immutable/chunks/index.6f6508f3.js","_app/immutable/chunks/auth.816a7469.js","_app/immutable/chunks/supabase.ed06c84b.js","_app/immutable/chunks/_commonjsHelpers.23102255.js"];
 export const stylesheets = ["_app/immutable/assets/3.2652f4dd.css"];
 export const fonts = [];
